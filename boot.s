@@ -23,7 +23,7 @@ GRUB looks for this when bootloading.
         .skip   16384 # 16 KiB
     stack_top:
  
-.section .text
+.text
 .globl _start
 .globl _hang
 .globl _initStack
@@ -33,25 +33,16 @@ _start is the designated function signature
 for starting the kernel via GRUB. 
 */
 _start:
-    call    _initStack
-	call    kernelEntry
-    call    _hang
+    /* GRUB does not initialize the stack, must
+    be done manually. */
+    mov     $stack_top, %esp
 
-/*
-Do nothing.
-Prevents the kernel from stopping abruptly.
-*/
-_hang:
+	call    kernelEntry
+
+    /* Do nothing.Prevents the kernel from stopping 
+    abruptly. */
     cli
 1:	hlt
 	jmp 1b
-
-/*
-GRUB does not initialize the stack, must
-be done manually.
-*/
-_initStack:
-    mov     $stack_top, %esp
-    ret
 
 .size _start, . - _start
