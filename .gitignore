@@ -1,1 +1,4 @@
 build
+Pong-i386.iso
+isodir/boot/Pong-i386.bin
+isodir/boot/grub/grub.cfg
