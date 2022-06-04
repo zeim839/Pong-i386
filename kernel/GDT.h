@@ -1,4 +1,4 @@
-/* src: GDT.s */
+/* src: tables.s */
 #ifndef GDT_H
 #define GDT_H
 

@@ -5,6 +5,8 @@
 .globl GDT_CODE
 .globl GDT_DATA
 .globl GDT_DESC
+.globl CODE_SEL
+.globl resolveISR
 
 GDT_NULL_DESCRIPTOR:
     .long    0x0
@@ -27,6 +29,9 @@ GDT_DESC:
     .word      (GDT_DESC - GDT_NULL_DESCRIPTOR - 1)
     .long      GDT_NULL_DESCRIPTOR
 
+CODE_SEL:
+    .word       (GDT_CODE - GDT_NULL_DESCRIPTOR)
+
 loadGDTP:
     /* Load GDT. Segments will have to be reloaded before
     actually taking effect. */
@@ -47,3 +52,26 @@ loadGDTP:
         mov   %ax, %ss
 
     ret
+
+/* @TODO: ISR handler. Save state, run a debug subroutine.*/
+resolveISR:
+    cli
+    pusha
+    push    %ds
+    push    %es
+    push    %fs
+    push    %gs
+    mov	    $(GDT_DATA - GDT_NULL_DESCRIPTOR), %ax
+	mov	    %ax, %ds
+	mov	    %ax, %es
+	mov	    %ax, %fs
+	mov	    %ax, %gs
+    /* @TODO: Debugging */
+    pop     %eax
+    pop     %gs
+    pop     %fs
+    pop     %es
+    pop     %ds
+    popa    
+    sti
+    iret
