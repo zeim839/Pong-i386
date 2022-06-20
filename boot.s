@@ -3,7 +3,7 @@
 .set FLAGS,    ALIGN | MEMINFO      /* this is the Multiboot 'flag' field */
 .set MAGIC,    0x1BADB002           /* 'magic number' lets bootloader find the header */
 
-.set CHECKSUM, -(MAGIC + FLAGS)     /* checksum of above, prevents code from accidentally 
+.set CHECKSUM, -(MAGIC + FLAGS)     /* checksum of above, prevents code from accidentally
                                        being loaded as kernel */
 
 /*
@@ -15,34 +15,30 @@ GRUB looks for this when bootloading.
     .long   MAGIC
     .long   FLAGS
     .long   CHECKSUM
- 
+
 /* Stack */
 .section .bss
     .align  16
     stack_bottom:
         .skip   16384 # 16 KiB
     stack_top:
- 
+
 .text
 .globl _start
-.globl _hang
-.globl _initStack
 
-/* 
+/*
 _start is the designated function signature
-for starting the kernel via GRUB. 
+for starting the kernel via GRUB.
 */
 _start:
     /* GRUB does not initialize the stack, must
     be done manually. */
     mov     $stack_top, %esp
 
-	call    kernelEntry
+	  call    kernel_entry
 
-    /* Do nothing.Prevents the kernel from stopping 
+    /* Do nothing.Prevents the kernel from stopping
     abruptly. */
-    cli
-1:	hlt
-	jmp 1b
+l:	jmp   l
 
 .size _start, . - _start
