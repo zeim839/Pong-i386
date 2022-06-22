@@ -41,6 +41,20 @@ void print_char (unsigned char uc, uint8_t clr)
   COLUMN++;
 }
 
+void put_char (
+  unsigned char uc, size_t row, size_t column, uint8_t clr
+) {
+  size_t _row = ROW;
+  size_t _column = COLUMN;
+  ROW = row;
+  COLUMN = column;
+
+  print_char(uc, clr);
+
+  ROW = _row;
+  COLUMN = _column;
+}
+
 void print (unsigned char* ptr)
 {
   /* All strings end with an EOF character. Print until
@@ -49,6 +63,19 @@ void print (unsigned char* ptr)
     print_char(*ptr, 15);
     ptr++;
   }
+}
+
+void print_at(unsigned char* ptr, size_t row, size_t column)
+{
+  size_t _row = ROW;
+  size_t _column = COLUMN;
+  ROW = row;
+  COLUMN = column;
+
+  print(ptr);
+
+  ROW = _row;
+  COLUMN = _column;
 }
 
 
