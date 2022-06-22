@@ -47,9 +47,11 @@ void scroll_up (size_t rows);
 
 /* Prints a character at the next available buffer index */
 void print_char (unsigned char uc, uint8_t clr);
+void put_char(unsigned char, size_t row, size_t column, uint8_t clr);
 
 /* Prints a string */
 void print(unsigned char* ptr);
+void print_at(unsigned char* ptr, size_t row, size_t column);
 
 /* Prints a string starting at the next available row. */
 void println(unsigned char* ptr);
