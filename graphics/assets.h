@@ -15,7 +15,11 @@
 window or elements will overlap.*/
 void draw_assets();
 
+/* Reset asset positions to default values */
 void reset_assets();
+
+/* Converts num to an unsigned char */
+unsigned char num2char(size_t num);
 
 /* Move the player paddles vertically by y steps. Negative
 integers go down, positives go up.*/
@@ -34,7 +38,7 @@ void mov_ball_diag(size_t dir, int y);
 
 /* Checks if the ball has collided with a paddle, wall
 or border. Consequently handles bouncing, score keeping. */
-void handle_ball();
+int handle_ball();
 
 /* Increments the score for player a or player b. Set a
 parameter to 0 if no increment.*/

@@ -3,7 +3,7 @@
 /*=============================
           ASSET STATE
   =============================  */
-size_t PRIMARY_POS_Y, SECOND_POS_Y,  BALL_X,  
+size_t PRIMARY_POS_Y, SECOND_POS_Y,  BALL_X,
   BALL_Y, BALL_DIR;
 
 size_t SCORE_A = 0;
@@ -39,8 +39,14 @@ void draw_assets()
   put_char(' ', BALL_Y, BALL_X, clr);
 
   /* Score board */
-  unsigned char scr[] = "Score: ";
+  unsigned char scr[] = "Score:   :  ";
   print_at(&scr[0], 24, 0);
+  put_char(num2char(SCORE_A), 24, 7, VGA_COLOR_WHITE);
+  put_char(num2char(SCORE_B), 24, 11, VGA_COLOR_WHITE);
+}
+
+unsigned char num2char(size_t num) {
+  return num + '0';
 }
 
 /*=============================
@@ -156,22 +162,27 @@ void handle_collision()
   }
 }
 
-void handle_ball()
+int handle_ball()
 {
+  int out = (BALL_DIR >= 2 && BALL_DIR <= 5)
+    ? 1 : 0;
+
   if (BALL_X == 0) {
     increment_score(0, 1);
     reset_assets();
-    return;
+    return out;
   }
 
   if (BALL_X == 79) {
     increment_score(1, 0);
     reset_assets();
-    return;
+    return out;
   }
 
   move_ball();
   handle_collision();
+
+  return out;
 }
 
 void increment_score(size_t a, size_t b)
