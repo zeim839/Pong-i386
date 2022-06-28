@@ -1,5 +1,4 @@
 #include "arch/interrupts.h"
-#include "drivers/textmode.h"
 #include "drivers/clock.h"
 #include "drivers/pckbrd.h"
 #include "graphics/assets.h"
@@ -31,6 +30,7 @@ void sys_init(void)
 
   reset_assets();
   register_callback(game);
+  title_screen();
 }
 
 void kernel_entry()
@@ -38,3 +38,4 @@ void kernel_entry()
   sys_init();
   for(;;) asm("hlt");
 }
+≈
