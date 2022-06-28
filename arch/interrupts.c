@@ -177,10 +177,10 @@ void init_keyboard(void* base) {
 
 void register_hook(size_t vector, uint32_t ptr)
 {
-  TABLE[vector].BASE_LOW = (unsigned short)(ptr & 0xFFFF);
-  TABLE[vector].SEL = (unsigned short)CODE_SEL;
-  TABLE[vector].ZEROS = 0;
-  TABLE[vector].FLAGS = 0x8E;
-  TABLE[vector].BASE_HIGH = (unsigned short)((ptr >> 16) & 0xFFFF);
+  TABLE[vector].BASE_LOW   = (unsigned short)(ptr & 0xFFFF);
+  TABLE[vector].SEL        = (unsigned short)CODE_SEL;
+  TABLE[vector].ZEROS      = 0;
+  TABLE[vector].FLAGS      = 0x8E;
+  TABLE[vector].BASE_HIGH  = (unsigned short)((ptr >> 16) & 0xFFFF);
 }
 

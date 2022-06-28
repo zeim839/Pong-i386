@@ -38,4 +38,3 @@ void kernel_entry()
   sys_init();
   for(;;) asm("hlt");
 }
-≈
