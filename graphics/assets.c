@@ -6,8 +6,17 @@
 size_t PRIMARY_POS_Y, SECOND_POS_Y,  BALL_X,
   BALL_Y, BALL_DIR;
 
-size_t SCORE_A = 0;
-size_t SCORE_B = 0;
+size_t SCORE_A   = 0;
+size_t SCORE_B   = 0;
+size_t DRAW_LOCK = 1;
+
+void lock_drawing() {
+  DRAW_LOCK = 1;
+}
+
+void unlock_drawing() {
+  DRAW_LOCK = 0;
+}
 
 void reset_assets()
 {
@@ -22,6 +31,8 @@ void reset_assets()
 
 void draw_assets()
 {
+  if (DRAW_LOCK) return;
+
   vga_clear();
   uint8_t clr = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_WHITE);
 
@@ -47,6 +58,30 @@ void draw_assets()
 
 unsigned char num2char(size_t num) {
   return num + '0';
+}
+
+void reset_score()
+{
+  SCORE_A = 0;
+  SCORE_B = 0;
+}
+
+void increment_score(size_t a, size_t b)
+{
+  SCORE_A += a;
+  SCORE_B += b;
+
+  if (SCORE_A == 10) {
+    player_a_wins();
+    reset_score();
+    lock_drawing();
+  }
+
+  if (SCORE_B == 10) {
+    player_b_wins();
+    reset_score();
+    lock_drawing();
+  }
 }
 
 /*=============================
@@ -85,7 +120,7 @@ void mov_ball_diag(size_t dir, int y)
   move_asset(-y, 24, &BALL_Y);
 }
 
-void move_ball() 
+void move_ball()
 {
   switch (BALL_DIR) {
   case 0: /* Move right */
@@ -184,10 +219,3 @@ int handle_ball()
 
   return out;
 }
-
-void increment_score(size_t a, size_t b)
-{
-  SCORE_A += a;
-  SCORE_B += b;
-}
-

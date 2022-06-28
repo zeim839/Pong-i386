@@ -2,6 +2,7 @@
 #define ASSETS_H
 
 #include "../drivers/textmode.h"
+#include "windows.h"
 
 #define PRIMARY_INIT_TOP  10
 #define SECOND_INIT_TOP   10
@@ -15,8 +16,14 @@
 window or elements will overlap.*/
 void draw_assets();
 
-/* Reset asset positions to default values */
+/* Enable/disable drawing game assets. Useful when displaying
+a title screen or window.*/
+void lock_drawing();
+void unlock_drawing();
+
+/* Reset asset score/positions to default values */
 void reset_assets();
+void reset_score();
 
 /* Converts num to an unsigned char */
 unsigned char num2char(size_t num);
