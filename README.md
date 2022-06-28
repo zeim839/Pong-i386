@@ -1,6 +1,6 @@
 # Pong-i386
 ![](https://i.imgur.com/VuXNthr.gif)
-Bare metal [Pong](https://en.wikipedia.org/wiki/Pong) on the Intel i386 architecture.
+<br>Bare metal [Pong](https://en.wikipedia.org/wiki/Pong) on the Intel i386 architecture.
 
 ## Usage
 ### Quick Start
