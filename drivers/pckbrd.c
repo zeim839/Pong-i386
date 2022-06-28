@@ -1,8 +1,5 @@
 #include "pckbrd.h"
 
-int kb_has_input = FALSE;
-unsigned char in_buffer;
-
 int read_scancode (uint8_t code, unsigned char* out)
 {
   /* Only handle the keys necessary for the game */
@@ -29,14 +26,6 @@ int read_scancode (uint8_t code, unsigned char* out)
   return TRUE;
 }
 
-int kb_getchar(unsigned char* out)
-{
-  if (!kb_has_input) return FALSE;
-  *out = in_buffer;
-  kb_has_input = FALSE;
-  return TRUE;
-}
-
 void kb_handler(void)
 {
   unsigned char out;
@@ -44,8 +33,26 @@ void kb_handler(void)
   int i = read_scancode(code, &out);
 
   if (i) {
-    kb_has_input = TRUE;
-    in_buffer = out;
+    /* Move game paddles  */
+    switch(out) {
+    case 'w':         /* Player A up */
+      mov_boardA(1);
+      break;
+    case 's':         /* Player A down */
+      mov_boardA(-1);
+      break;
+    case 'o':         /* Player B up */
+      mov_boardB(1);
+      break;
+    case 'k':         /* Player B down */
+      mov_boardB(-1);
+      break;
+    case 'z':
+      reset_assets();
+      reset_score();
+      unlock_drawing();
+      break;
+    }
   }
 
   eoi_master();
