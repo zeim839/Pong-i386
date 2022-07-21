@@ -33,4 +33,4 @@ qemu-system-i386 -cdrom Pong-i386.iso
 ```
 
 ## License
-[GNU General Public License](LICENSE.md)
+[GNU General Public License](https://github.com/zeim839/Pong-i386/blob/main/LICENSE)
