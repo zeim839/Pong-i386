@@ -1,7 +1,7 @@
 #ifndef PCKBRD_H
 #define PCKBRD_H
 
-#include "../arch/include/ports.h"
+#include "../arch/ports.h"
 #include "../arch/interrupts.h"
 #include "../graphics/assets.h"
 
