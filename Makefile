@@ -1,10 +1,10 @@
 default:
 	$P/i686-elf-as boot.s -o build/boot.o
 	$P/i686-elf-as arch/gdt.s -o build/gdt.o
-	$P/i686-elf-as arch/include/isr.s -o build/isr.o
+	$P/i686-elf-as arch/isr.s -o build/isr.o
 	$P/i686-elf-gcc -c arch/interrupts.c -o build/interrupts.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions
 	$P/i686-elf-gcc -c graphics/windows.c -o build/windows.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions
-	$P/i686-elf-gcc -c arch/include/ports.c -o build/ports.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions
+	$P/i686-elf-gcc -c arch/ports.c -o build/ports.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions
 	$P/i686-elf-gcc -c drivers/textmode.c -o build/textmode.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions
 	$P/i686-elf-gcc -c drivers/clock.c -o build/clock.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions
 	$P/i686-elf-gcc -c drivers/pckbrd.c -o build/pckbrd.o -ffreestanding -O2 -Wall -Wextra -fno-exceptions
